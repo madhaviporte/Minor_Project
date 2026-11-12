@@ -4,7 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <title>Secure File Storage</title>
+    <script>
+      // Apply the saved light/dark theme before the page paints, so switching
+      // themes never flashes the wrong background on load.
+      (function () {
+        var theme = "light";
+        try {
+          var saved = localStorage.getItem("sfs-theme");
+          var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          theme = saved === "dark" || (saved !== "light" && systemDark) ? "dark" : "light";
+        } catch (error) {
+          theme = "light";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
